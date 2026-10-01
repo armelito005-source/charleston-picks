@@ -44,12 +44,23 @@
   .card.picked{border-color:var(--coral);box-shadow:0 10px 30px rgba(233,118,91,.25)}
   .photo{position:relative;aspect-ratio:3/2;background:var(--sand);overflow:hidden}
   .photo img{width:100%;height:100%;object-fit:cover;display:block}
-  .gal{display:flex;width:100%;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .gal{display:flex;width:100%;height:100%;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;touch-action:pan-x pan-y;scrollbar-width:none;overscroll-behavior-x:contain}
   .gal::-webkit-scrollbar{display:none}
-  .slide{flex:0 0 100%;height:100%;scroll-snap-align:start;position:relative;background:var(--sand)}
-  .gdots{position:absolute;bottom:10px;left:0;right:0;display:flex;justify-content:center;gap:6px;pointer-events:none}
-  .gdots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.55);box-shadow:0 1px 3px rgba(0,0,0,.25)}
-  .gdots i.on{background:#fff}
+  .slide{flex:0 0 100%;width:100%;height:100%;scroll-snap-align:start;scroll-snap-stop:always;position:relative;background:var(--sand)}
+  .slide img{-webkit-user-drag:none;user-select:none}
+  .garrow{position:absolute;top:50%;transform:translateY(-50%);width:42px;height:42px;border-radius:50%;border:0;
+    background:rgba(255,255,255,.85);color:var(--deep);font-size:26px;line-height:1;display:flex;align-items:center;justify-content:center;
+    box-shadow:0 2px 10px rgba(0,0,0,.25);cursor:pointer;z-index:3;padding:0 0 3px;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+  .garrow:active{background:#fff;transform:translateY(-50%) scale(.94)}
+  .garrow.prev{left:10px} .garrow.next{right:10px}
+  .garrow::before{content:"";position:absolute;inset:-8px}
+  .gdots{position:absolute;bottom:6px;left:50%;transform:translateX(-50%);display:flex;gap:2px;z-index:3}
+  .gdots button{width:24px;height:24px;border:0;background:transparent;padding:0;display:flex;align-items:center;justify-content:center;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+  .gdots button i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.6);box-shadow:0 1px 3px rgba(0,0,0,.35);transition:transform .15s}
+  .gdots button.on i{background:#fff;transform:scale(1.25)}
+  .gcount{position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,.55);color:#fff;font-size:12px;font-weight:800;
+    padding:3px 9px;border-radius:999px;z-index:3;pointer-events:none}
   .ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
     color:#fff;text-align:center;padding:12px}
   .ph .area{font-family:"Fraunces",Georgia,serif;font-size:26px;font-weight:700;text-shadow:0 2px 12px rgba(0,0,0,.18)}
@@ -232,15 +243,28 @@ function placeholder(l){
 const sized = u => u + (u.includes("?")?"&":"?") + "im_w=720";
 function photoBlock(l,i){
   if(!l.imgs||!l.imgs.length) return placeholder(l);
-  const slides = l.imgs.map((u,k)=>`<div class="slide"><img src="${esc(sized(u))}" alt="${esc(l.title)} photo ${k+1}" ${k?'loading="lazy"':''} referrerpolicy="no-referrer" onerror="this.outerHTML=window.__ph(${i})"></div>`).join("");
-  const dots = l.imgs.length>1 ? `<div class="gdots">${l.imgs.map((_,k)=>`<i class="${k?"":"on"}"></i>`).join("")}</div>` : "";
-  return `<div class="gal" data-i="${i}">${slides}</div>${dots}`;
+  const n=l.imgs.length;
+  const slides = l.imgs.map((u,k)=>`<div class="slide"><img src="${esc(sized(u))}" alt="${esc(l.title)} photo ${k+1}" draggable="false" referrerpolicy="no-referrer" onerror="this.outerHTML=window.__ph(${i})"></div>`).join("");
+  if(n<2) return `<div class="gal">${slides}</div>`;
+  return `<div class="gal" data-i="${i}">${slides}</div>
+    <button type="button" class="garrow prev" aria-label="Previous photo">&#8249;</button>
+    <button type="button" class="garrow next" aria-label="Next photo">&#8250;</button>
+    <div class="gdots">${l.imgs.map((_,k)=>`<button type="button" class="${k?"":"on"}" data-k="${k}" aria-label="Photo ${k+1}"><i></i></button>`).join("")}</div>
+    <div class="gcount">1/${n}</div>`;
 }
 function wireGalleries(){
-  document.querySelectorAll(".gal").forEach(g=>{
-    const dots=g.parentElement.querySelectorAll(".gdots i");
-    if(!dots.length) return;
-    g.addEventListener("scroll",()=>{ const k=Math.round(g.scrollLeft/g.clientWidth); dots.forEach((d,j)=>d.classList.toggle("on",j===k)); },{passive:true});
+  document.querySelectorAll(".photo").forEach(ph=>{
+    const g=ph.querySelector(".gal"); if(!g) return;
+    const n=g.children.length; if(n<2) return;
+    const dots=[...ph.querySelectorAll(".gdots button")], cnt=ph.querySelector(".gcount");
+    const cur=()=>Math.round(g.scrollLeft/Math.max(1,g.clientWidth));
+    const paint=k=>{ k=Math.max(0,Math.min(n-1,k)); dots.forEach((d,j)=>d.classList.toggle("on",j===k)); if(cnt) cnt.textContent=(k+1)+"/"+n; };
+    const go=k=>{ k=((k%n)+n)%n; paint(k); g.scrollTo({left:k*g.clientWidth,behavior:"smooth"}); };
+    let t; g.addEventListener("scroll",()=>{ paint(cur()); clearTimeout(t); t=setTimeout(()=>paint(cur()),120); },{passive:true});
+    ph.querySelector(".prev").addEventListener("click",e=>{ e.preventDefault(); e.stopPropagation(); go(cur()-1); });
+    ph.querySelector(".next").addEventListener("click",e=>{ e.preventDefault(); e.stopPropagation(); go(cur()+1); });
+    dots.forEach(d=>d.addEventListener("click",e=>{ e.preventDefault(); e.stopPropagation(); go(+d.dataset.k); }));
+    window.addEventListener("resize",()=>{ g.scrollLeft=cur()*g.clientWidth; });
   });
 }
 function render(){
