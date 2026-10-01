@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Charleston, here we come!</title>
+<meta name="description" content="Pick your favorite places for our Charleston weekend, Oct 15-18.">
+<meta property="og:title" content="Charleston, here we come!">
+<meta property="og:description" content="Pick your top 5 places for our trip">
+<meta property="og:image" content="https://a0.muscache.com/im/pictures/miso/Hosting-978980085184967102/original/05db8c5a-e03f-497f-9dcf-1375f6749ba3.jpeg?im_w=720">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#fff8f1; --sand:#f6e7d8; --peach:#f4a988; --coral:#e9765b; --deep:#2f4858;
+    --teal:#3e8e8a; --ink:#2b2b2b; --muted:#6f6a66; --card:#ffffff; --gold:#e8b04b;
+    --radius:20px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:"Nunito",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink);
+    background:linear-gradient(180deg,#fde9dc 0%,var(--cream) 340px);min-height:100vh;
+    padding-bottom:calc(120px + env(safe-area-inset-bottom))}
+  .wrap{max-width:720px;margin:0 auto;padding:0 18px}
+  header{text-align:center;padding:42px 6px 18px}
+  .dates{display:inline-block;background:#fff;border-radius:999px;padding:6px 14px;font-weight:700;
+    font-size:13px;letter-spacing:.04em;color:var(--teal);box-shadow:0 2px 10px rgba(0,0,0,.06)}
+  h1{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:clamp(34px,9vw,52px);line-height:1.05;
+    margin:16px 0 10px;color:var(--deep)}
+  h1 .sparkle{display:inline-block;animation:float 3s ease-in-out infinite}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+  .intro{font-size:17px;line-height:1.55;color:#4a4542;max-width:540px;margin:0 auto}
+  .how{margin:22px auto 6px;background:#fff;border-radius:var(--radius);padding:16px 18px;
+    box-shadow:0 6px 24px rgba(233,118,91,.10);font-size:15px;line-height:1.5;text-align:left}
+  .how ol{margin:6px 0 0;padding-left:22px}
+  .how li{margin:3px 0}
+  .grid{display:grid;grid-template-columns:1fr;gap:18px;margin-top:22px}
+  @media(min-width:640px){.grid{grid-template-columns:1fr 1fr}}
+  .card{background:var(--card);border-radius:var(--radius);overflow:hidden;position:relative;
+    box-shadow:0 6px 22px rgba(47,72,88,.09);transition:transform .15s ease, box-shadow .15s ease;
+    border:3px solid transparent;display:flex;flex-direction:column}
+  .card.picked{border-color:var(--coral);box-shadow:0 10px 30px rgba(233,118,91,.25)}
+  .photo{position:relative;aspect-ratio:3/2;background:var(--sand);overflow:hidden}
+  .photo img{width:100%;height:100%;object-fit:cover;display:block}
+  .gal{display:flex;width:100%;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .gal::-webkit-scrollbar{display:none}
+  .slide{flex:0 0 100%;height:100%;scroll-snap-align:start;position:relative;background:var(--sand)}
+  .gdots{position:absolute;bottom:10px;left:0;right:0;display:flex;justify-content:center;gap:6px;pointer-events:none}
+  .gdots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.55);box-shadow:0 1px 3px rgba(0,0,0,.25)}
+  .gdots i.on{background:#fff}
+  .ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    color:#fff;text-align:center;padding:12px}
+  .ph .area{font-family:"Fraunces",Georgia,serif;font-size:26px;font-weight:700;text-shadow:0 2px 12px rgba(0,0,0,.18)}
+  .ph .sub{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;opacity:.9;margin-top:4px}
+  .ph svg{width:46px;height:46px;opacity:.85;margin-bottom:8px}
+  .badge{position:absolute;top:12px;left:12px;background:rgba(255,255,255,.95);color:var(--deep);
+    font-size:12px;font-weight:800;padding:5px 10px;border-radius:999px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+  .rankpill{position:absolute;top:10px;right:10px;width:44px;height:44px;border-radius:50%;
+    background:var(--coral);color:#fff;font-weight:800;font-size:20px;display:none;align-items:center;justify-content:center;
+    box-shadow:0 4px 14px rgba(233,118,91,.45);font-family:"Fraunces",Georgia,serif}
+  .card.picked .rankpill{display:flex;animation:pop .25s ease}
+  @keyframes pop{0%{transform:scale(.4)}80%{transform:scale(1.1)}100%{transform:scale(1)}}
+  .body{padding:16px 16px 14px;display:flex;flex-direction:column;gap:8px;flex:1}
+  .title{font-family:"Fraunces",Georgia,serif;font-weight:700;font-size:20px;line-height:1.2;margin:0;color:var(--deep)}
+  .meta{display:flex;flex-wrap:wrap;gap:6px 12px;font-size:14px;color:var(--muted);align-items:center}
+  .price{font-weight:800;color:var(--ink);font-size:16px}
+  .star{color:var(--gold)}
+  .desc{font-size:15px;line-height:1.5;margin:2px 0 0;color:#44403d}
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chip{background:#eef6f5;color:var(--teal);font-weight:700;font-size:12.5px;padding:5px 10px;border-radius:999px}
+  .chip.warm{background:#fdf0e9;color:#b9573f}
+  .drive{font-size:14px;color:#4a4542;display:flex;gap:14px;flex-wrap:wrap}
+  .drive span{white-space:nowrap}
+  .actions{display:flex;gap:10px;margin-top:auto;padding-top:8px;align-items:center}
+  .pick{flex:1;border:0;border-radius:14px;padding:13px 14px;font:800 15px "Nunito",sans-serif;cursor:pointer;
+    background:var(--deep);color:#fff;transition:background .15s}
+  .pick:active{transform:scale(.98)}
+  .card.picked .pick{background:#fff;color:var(--coral);box-shadow:inset 0 0 0 2px var(--coral)}
+  .pick:disabled{background:#cfcac6;cursor:not-allowed}
+  .see{font-weight:800;font-size:14px;color:var(--teal);text-decoration:none;padding:12px 6px;white-space:nowrap}
+  .fine{font-size:12.5px;color:var(--muted);text-align:center;margin:18px 0 0;line-height:1.5}
+  /* picks panel */
+  #picks{margin-top:30px;background:#fff;border-radius:var(--radius);padding:20px 18px;box-shadow:0 8px 30px rgba(47,72,88,.10)}
+  #picks h2{font-family:"Fraunces",Georgia,serif;margin:0 0 4px;color:var(--deep);font-size:26px}
+  #picks .hint{color:var(--muted);font-size:14px;margin:0 0 14px}
+  .slot{display:flex;align-items:center;gap:10px;padding:10px 10px;border-radius:14px;background:var(--cream);margin-bottom:8px;min-height:56px}
+  .slot .n{width:32px;height:32px;flex:0 0 32px;border-radius:50%;background:var(--sand);color:var(--deep);
+    font-weight:800;display:flex;align-items:center;justify-content:center;font-family:"Fraunces",Georgia,serif}
+  .slot.filled .n{background:var(--coral);color:#fff}
+  .slot .t{flex:1;font-weight:700;font-size:15px;line-height:1.25}
+  .slot .t small{display:block;font-weight:600;color:var(--muted);font-size:12.5px}
+  .slot.empty .t{color:#b3aca6;font-weight:600}
+  .mini{border:0;background:#fff;width:34px;height:34px;border-radius:10px;font-size:16px;cursor:pointer;
+    box-shadow:0 1px 4px rgba(0,0,0,.08);color:var(--deep)}
+  .mini:disabled{opacity:.3}
+  label{display:block;font-weight:800;font-size:14px;margin:16px 0 6px;color:var(--deep)}
+  input,textarea{width:100%;border:2px solid var(--sand);border-radius:14px;padding:12px 14px;font:600 16px "Nunito",sans-serif;
+    background:#fff;color:var(--ink);outline:none}
+  input:focus,textarea:focus{border-color:var(--peach)}
+  textarea{min-height:90px;resize:vertical}
+  #submit{width:100%;margin-top:18px;border:0;border-radius:16px;padding:16px;font:800 17px "Nunito",sans-serif;
+    background:linear-gradient(90deg,var(--coral),#f08a63);color:#fff;cursor:pointer;box-shadow:0 8px 20px rgba(233,118,91,.35)}
+  #submit:disabled{background:#d8d2cd;box-shadow:none;cursor:not-allowed}
+  #err{color:#b3412a;font-weight:700;font-size:14px;margin-top:10px;display:none}
+  /* sticky bar */
+  #bar{position:fixed;left:0;right:0;bottom:0;padding:12px 16px calc(12px + env(safe-area-inset-bottom));
+    background:rgba(255,255,255,.96);backdrop-filter:blur(8px);box-shadow:0 -6px 24px rgba(0,0,0,.08);z-index:20}
+  #bar .in{max-width:720px;margin:0 auto;display:flex;align-items:center;gap:12px}
+  .dots{display:flex;gap:6px}
+  .dot{width:12px;height:12px;border-radius:50%;background:var(--sand);transition:background .2s}
+  .dot.on{background:var(--coral)}
+  #barText{flex:1;font-weight:800;font-size:15px;color:var(--deep)}
+  #barBtn{border:0;border-radius:12px;padding:11px 14px;font:800 14px "Nunito",sans-serif;background:var(--deep);color:#fff;cursor:pointer}
+  /* thank you */
+  #thanks{display:none;text-align:center;padding:60px 10px 30px}
+  #thanks h2{font-family:"Fraunces",Georgia,serif;font-size:38px;color:var(--deep);margin:10px 0}
+  #thanks p{font-size:17px;line-height:1.55;color:#4a4542;max-width:480px;margin:10px auto}
+  #thanks ol{display:inline-block;text-align:left;font-weight:700;font-size:16px;line-height:1.8;margin:14px auto;padding-left:24px}
+  .big{font-size:56px}
+  .smsbtn{display:inline-block;margin-top:14px;text-decoration:none;font-weight:800;color:var(--teal);font-size:15px}
+  .confetti{position:fixed;top:-12px;width:10px;height:14px;border-radius:2px;z-index:50;pointer-events:none;animation:fall linear forwards}
+  @keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
+  footer{text-align:center;color:var(--muted);font-size:13px;margin:34px 0 10px}
+</style>
+</head>
+<body>
+<div class="wrap" id="main">
+  <header>
+    <span class="dates">THU OCT 15 - SUN OCT 18 &middot; 2 GUESTS</span>
+    <h1>Charleston, here we come! <span class="sparkle">&#127796;</span></h1>
+    <p class="intro">I know finding a place has been stressful, so I took care of the searching. All that's left is the fun part: picking your favorites. No wrong answers, I'd be happy in any of these with you.</p>
+    <div class="how">
+      <strong>How it works</strong>
+      <ol>
+        <li>Tap <b>Pick this one</b> on your favorites, in order. Your first tap is your #1.</li>
+        <li>Choose 5, then fine-tune the order at the bottom if you want.</li>
+        <li>Add a note if you like and hit send. That's it!</li>
+      </ol>
+    </div>
+  </header>
+
+  <div class="grid" id="grid"></div>
+  <p class="fine">Prices are 3-night totals before taxes and fees. Drive times are rough estimates. Every option is an entire private place with a kitchen.</p>
+
+  <section id="picks">
+    <h2>Your top 5</h2>
+    <p class="hint">Use the arrows to reorder. Tap &times; to swap one out.</p>
+    <div id="slots"></div>
+    <label for="name">Your name</label>
+    <input id="name" autocomplete="given-name" placeholder="So I know it's you" maxlength="80">
+    <label for="note">Anything else? (optional)</label>
+    <textarea id="note" placeholder="Must-haves, vibes, a place you're secretly hoping for..." maxlength="1500"></textarea>
+    <button id="submit" disabled>Pick 5 to send</button>
+    <div id="err"></div>
+  </section>
+  <footer>Made with love for our weekend away &#10084;&#65039;</footer>
+</div>
+
+<div class="wrap" id="thanks">
+  <div class="big">&#127881;</div>
+  <h2>Got it, thank you!</h2>
+  <p id="thanksMsg">Your picks are on their way to me. I'll grab one of your favorites and we're all set. Charleston is going to be so good.</p>
+  <ol id="finalList"></ol>
+  <p style="font-size:14px;color:#8a837e" id="backupLine"><span id="backupLead">Want to double check it reached me?</span><br><a class="smsbtn" id="smsLink" href="#">Text me your picks</a> &nbsp;&middot;&nbsp; <a class="smsbtn" id="mailLink" href="#">Email them instead</a></p>
+</div>
+
+<div id="bar"><div class="in">
+  <div class="dots" id="dots"></div>
+  <div id="barText">Pick your top 5</div>
+  <button id="barBtn">Review</button>
+</div></div>
+
+<script>
+/* ===== Config ===== */
+const SUBMIT_URL = "";   // webhook endpoint (e.g. Airtable automation webhook). Set before publishing.
+const SMS_TO = "+19104294509";        // optional phone number for the text fallback, e.g. "+15551234567"
+const EMAIL_TO = "";      // optional email for the email fallback
+
+const L = [
+ {id:"978980085184967102", title:"Private detached 1-bedroom apartment", area:"James Island", price:436, rating:"4.91", reviews:46,
+  tags:["Guest Favorite","Free cancellation"], down:"~12-15 min", morris:"~15 min",
+  desc:"A cozy detached 1-bedroom all to ourselves, and the best value of the bunch. Guests love it, and it's a short hop to both downtown and Morris Island.",
+  imgs:["https://a0.muscache.com/im/pictures/miso/Hosting-978980085184967102/original/05db8c5a-e03f-497f-9dcf-1375f6749ba3.jpeg", "https://a0.muscache.com/im/pictures/miso/Hosting-978980085184967102/original/870adb3c-8fa8-4c08-83af-9f9005e484c7.jpeg", "https://a0.muscache.com/im/pictures/miso/Hosting-978980085184967102/original/ae9930b0-f4bf-4d94-8a08-57fe56a1be43.jpeg"], g:["#f4a988","#e9765b"]},
+ {id:"32189310", title:"Dry Dock Village Bungalow", area:"North Charleston", price:455, rating:"4.81", reviews:375,
+  tags:["Superhost"], down:"~15 min", morris:"~30 min",
+  desc:"A cute little bungalow from a Superhost with hundreds of happy reviews. Easy, reliable, and about 15 minutes to downtown.",
+  imgs:["https://a0.muscache.com/im/pictures/c4e5099d-c5d3-43db-8964-99bb543a22eb.jpg", "https://a0.muscache.com/im/pictures/aa7da88a-d0dd-415c-914a-07a995946ad2.jpg", "https://a0.muscache.com/im/pictures/14f027b4-6acd-45c1-8052-63a1ee0d4196.jpg"], g:["#7fb8b4","#3e8e8a"]},
+ {id:"800049759823373357", title:"Newly renovated suite", area:"North Charleston", price:515, rating:"4.9", reviews:136,
+  tags:["Top Guest Favorite"], down:"~20 min", morris:"~30 min",
+  desc:"A freshly renovated suite that's one of Airbnb's top Guest Favorites. Clean, new, and highly rated.",
+  imgs:["https://a0.muscache.com/im/pictures/hosting/Hosting-800049759823373357/original/b5f33a77-9496-4013-8785-999aba325d99.jpeg", "https://a0.muscache.com/im/pictures/hosting/Hosting-800049759823373357/original/1c9ed812-0050-4084-8612-d0b0d103627e.jpeg", "https://a0.muscache.com/im/pictures/hosting/Hosting-800049759823373357/original/4fd4ca34-26e6-4522-976a-81878732bd05.jpeg"], g:["#9db7d5","#5a7fa8"]},
+ {id:"1656664993232692252", title:"Private Serenity Cottage", area:"West Ashley", price:516, rating:"5.0", reviews:24,
+  tags:["Parking","Washer/dryer","Free cancellation"], down:"~10-12 min", morris:"~25 min",
+  desc:"A perfect 5.0 private cottage with parking and a washer/dryer. One of the closest options to downtown.",
+  imgs:["https://a0.muscache.com/im/pictures/hosting/Hosting-1656664993232692252/original/d11ff760-e779-45f0-a58e-574ce3d37e77.jpeg", "https://a0.muscache.com/im/pictures/airflow/Hosting-1656664993232692252/original/d7456d7b-29ea-46ae-9f54-e9c87f0f10ad.jpg", "https://a0.muscache.com/im/pictures/airflow/Hosting-1656664993232692252/original/92039a5e-7d8d-46dc-972d-cfbd61c591f8.jpg"], g:["#c7b7e3","#8e79bd"]},
+ {id:"1561842213970748837", title:"Cozy 2-bedroom near downtown", area:"North Charleston (Dayton)", areaShort:"North Charleston", price:539, rating:"4.88", reviews:24,
+  tags:["Superhost"], down:"~15 min", morris:"~30 min",
+  desc:"A cozy 2-bedroom from a Superhost, so plenty of room to spread out. About 15 minutes to downtown.",
+  imgs:["https://a0.muscache.com/im/pictures/hosting/Hosting-1561842213970748837/original/45be0ad5-07ae-4707-b6a2-3ce541b5145f.jpeg", "https://a0.muscache.com/im/pictures/hosting/Hosting-1561842213970748837/original/e4c65713-4a59-4dd2-ab62-07291dbd63e6.jpeg", "https://a0.muscache.com/im/pictures/hosting/Hosting-1561842213970748837/original/478a95e7-91b4-476c-86af-76b4020df10d.jpeg"], g:["#f2c38b","#d9914a"]},
+ {id:"1744917741710272784", title:"Waterfront-view condo with pool", area:"Hanahan", price:560, rating:"5.0", reviews:7,
+  tags:["Shared pool","Water views"], down:"~20-25 min", morris:"~35 min",
+  desc:"A condo with waterfront views and a shared pool, rated a perfect 5.0. A relaxing spot to come home to.",
+  imgs:[], g:["#8fc9d9","#3d8fb0"]},
+ {id:"12988926", title:"Detached guest suite with pool", area:"West Ashley", price:563, rating:"4.98", reviews:275,
+  tags:["Top Guest Favorite","Pool"], down:"~15-20 min", morris:"~30 min",
+  desc:"A detached guest suite with a pool and a near-perfect rating across 275 reviews. A top Guest Favorite for good reason.",
+  imgs:["https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTI5ODg5MjY=/original/5cb655c8-6164-4ea7-b7fa-7e336baa6bf1.jpeg", "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTI5ODg5MjY=/original/c153891a-aa2e-4bec-bfc5-da618654eee2.jpeg"], g:["#a8d5ba","#5aa57a"]},
+ {id:"855702549066471017", title:"Home minutes from Folly Beach", area:"James Island", price:596, rating:"4.84", reviews:170,
+  tags:["Superhost","Near Folly Beach"], down:"~15 min", morris:"~15 min",
+  desc:"A whole home just minutes from Folly Beach, hosted by a Superhost. Great if we want beach time and downtown dinners.",
+  imgs:["https://a0.muscache.com/im/pictures/miso/Hosting-855702549066471017/original/9ba8817c-4949-44dd-acc1-5a5c58e2de79.jpeg", "https://a0.muscache.com/im/pictures/miso/Hosting-855702549066471017/original/d731f42c-88f1-4784-aa48-560accb20927.jpeg", "https://a0.muscache.com/im/pictures/miso/Hosting-855702549066471017/original/fbe0af20-acf6-46b4-ba52-8ffc0810a180.jpeg"], g:["#f6b6a6","#e07a6a"]},
+ {id:"3517453", title:"Private waterfront apartment in the oaks", area:"Johns Island", price:667, rating:"4.98", reviews:307,
+  tags:["Free cancellation","Creekside"], down:"~25-30 min", morris:"~30 min",
+  desc:"A secluded creekside apartment tucked under live oaks. The most peaceful, romantic pick, with a 4.98 rating over 300+ reviews.",
+  imgs:["https://a0.muscache.com/im/pictures/44889816/8f9dba09_original.jpg", "https://a0.muscache.com/im/pictures/44889193/1880ea6f_original.jpg", "https://a0.muscache.com/im/pictures/44889502/a743eb29_original.jpg"], g:["#9fbf8f","#5f8a4f"]},
+ {id:"638845356219755374", title:"New-build suite 10 min from Folly Beach", area:"James Island", price:687, rating:"4.96", reviews:184,
+  tags:["Free cancellation","Near Folly Beach"], down:"~12-15 min", morris:"~15 min",
+  desc:"A brand-new suite about 10 minutes from Folly Beach and close to downtown too. Modern and beautifully rated.",
+  imgs:["https://a0.muscache.com/im/pictures/533cb01a-87f8-43e3-a59e-d99358d7a25e.jpg", "https://a0.muscache.com/im/pictures/ce5b22d4-2612-4970-9c98-7c6a2f0ce978.jpg", "https://a0.muscache.com/im/pictures/9d1797de-7adb-4e8d-bead-1399d1367b87.jpg"], g:["#f3d27a","#e2a93a"]}
+];
+
+const picks = [];
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const house = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v10h14V10"/><path d="M10 20v-5h4v5"/></svg>';
+
+function placeholder(l){
+  return `<div class="ph" style="background:linear-gradient(135deg,${l.g[0]},${l.g[1]})">${house}<div class="area">${esc(l.areaShort||l.area)}</div><div class="sub">Charleston, SC</div></div>`;
+}
+const sized = u => u + (u.includes("?")?"&":"?") + "im_w=720";
+function photoBlock(l,i){
+  if(!l.imgs||!l.imgs.length) return placeholder(l);
+  const slides = l.imgs.map((u,k)=>`<div class="slide"><img src="${esc(sized(u))}" alt="${esc(l.title)} photo ${k+1}" ${k?'loading="lazy"':''} referrerpolicy="no-referrer" onerror="this.outerHTML=window.__ph(${i})"></div>`).join("");
+  const dots = l.imgs.length>1 ? `<div class="gdots">${l.imgs.map((_,k)=>`<i class="${k?"":"on"}"></i>`).join("")}</div>` : "";
+  return `<div class="gal" data-i="${i}">${slides}</div>${dots}`;
+}
+function wireGalleries(){
+  document.querySelectorAll(".gal").forEach(g=>{
+    const dots=g.parentElement.querySelectorAll(".gdots i");
+    if(!dots.length) return;
+    g.addEventListener("scroll",()=>{ const k=Math.round(g.scrollLeft/g.clientWidth); dots.forEach((d,j)=>d.classList.toggle("on",j===k)); },{passive:true});
+  });
+}
+function render(){
+  $("#grid").innerHTML = L.map((l,i)=>`
+   <article class="card" id="c${i}">
+     <div class="photo">${photoBlock(l,i)}
+       ${l.tags[0]&&/Favorite|Superhost/.test(l.tags[0])?`<span class="badge">${esc(l.tags[0])}</span>`:""}
+       <div class="rankpill"></div></div>
+     <div class="body">
+       <h3 class="title">${esc(l.title)}</h3>
+       <div class="meta"><span>${esc(l.area)}</span><span class="price">$${l.price} total</span><span><span class="star">&#9733;</span> ${l.rating} (${l.reviews})</span></div>
+       <p class="desc">${esc(l.desc)}</p>
+       <div class="chips">${l.tags.map(t=>`<span class="chip ${/Favorite|Superhost/.test(t)?"warm":""}">${esc(t)}</span>`).join("")}</div>
+       <div class="drive"><span>&#128663; ${l.down} to downtown</span><span>&#127754; ${l.morris} to Morris Island</span></div>
+       <div class="actions"><button class="pick" data-i="${i}">Pick this one</button>
+         <a class="see" href="https://www.airbnb.com/rooms/${l.id}" target="_blank" rel="noopener">See on Airbnb &rsaquo;</a></div>
+     </div>
+   </article>`).join("");
+  document.querySelectorAll(".pick").forEach(b=>b.addEventListener("click",()=>toggle(+b.dataset.i)));
+  wireGalleries();
+}
+window.__ph = i => placeholder(L[i]);
+
+function toggle(i){
+  const k = picks.indexOf(i);
+  if(k>=0) picks.splice(k,1);
+  else if(picks.length<5) picks.push(i);
+  update();
+}
+function move(k,d){ const j=k+d; if(j<0||j>=picks.length) return; [picks[k],picks[j]]=[picks[j],picks[k]]; update(); }
+
+function update(){
+  L.forEach((l,i)=>{
+    const c=$("#c"+i), k=picks.indexOf(i), b=c.querySelector(".pick");
+    c.classList.toggle("picked",k>=0);
+    c.querySelector(".rankpill").textContent = k>=0 ? "#"+(k+1) : "";
+    b.textContent = k>=0 ? `Your #${k+1} (tap to remove)` : (picks.length>=5 ? "Top 5 is full" : "Pick this one");
+    b.disabled = k<0 && picks.length>=5;
+  });
+  let h="";
+  for(let k=0;k<5;k++){
+    const i=picks[k];
+    if(i===undefined){ h+=`<div class="slot empty"><div class="n">${k+1}</div><div class="t">Tap a place above</div></div>`; continue; }
+    const l=L[i];
+    h+=`<div class="slot filled"><div class="n">${k+1}</div><div class="t">${esc(l.title)}<small>${esc(l.area)} &middot; $${l.price}</small></div>
+      <button class="mini" aria-label="Move up" ${k===0?"disabled":""} onclick="move(${k},-1)">&#8593;</button>
+      <button class="mini" aria-label="Move down" ${k===picks.length-1?"disabled":""} onclick="move(${k},1)">&#8595;</button>
+      <button class="mini" aria-label="Remove" onclick="toggle(${i})">&times;</button></div>`;
+  }
+  $("#slots").innerHTML=h;
+  $("#dots").innerHTML=[0,1,2,3,4].map(k=>`<span class="dot ${k<picks.length?"on":""}"></span>`).join("");
+  const n=picks.length;
+  $("#barText").textContent = n===0?"Pick your top 5": n<5?`${n} of 5 picked`:"All 5 picked!";
+  $("#barBtn").textContent = n===5?"Review & send":"See picks";
+  $("#submit").disabled = n!==5;
+  $("#submit").textContent = n===5 ? "Send my picks \u2764\uFE0F" : `Pick ${5-n} more to send`;
+  try{ localStorage.setItem("chs_picks",JSON.stringify({picks,name:$("#name").value,note:$("#note").value})); }catch(e){}
+}
+
+function summaryText(name,note){
+  const lines = picks.map((i,k)=>`${k+1}. ${L[i].title} (${L[i].area}, $${L[i].price}) airbnb.com/rooms/${L[i].id}`);
+  return `My Charleston top 5${name?" - "+name:""}:\n`+lines.join("\n")+(note?`\nNote: ${note}`:"");
+}
+
+async function submit(){
+  const name=$("#name").value.trim(), note=$("#note").value.trim();
+  if(picks.length!==5) return;
+  const btn=$("#submit"); btn.disabled=true; btn.textContent="Sending...";
+  $("#err").style.display="none";
+  const payload = {
+    name, note,
+    rank1:L[picks[0]].title, rank2:L[picks[1]].title, rank3:L[picks[2]].title, rank4:L[picks[3]].title, rank5:L[picks[4]].title,
+    ranked: picks.map((i,k)=>({rank:k+1, id:L[i].id, title:L[i].title, area:L[i].area, price:L[i].price, url:"https://www.airbnb.com/rooms/"+L[i].id})),
+    summary: summaryText(name,note),
+    submittedAt: new Date().toISOString(),
+    userAgent: navigator.userAgent
+  };
+  const sms = `sms:${SMS_TO}${/iPhone|iPad|Mac/.test(navigator.userAgent)?"&":"?"}body=${encodeURIComponent(payload.summary)}`;
+  const mail = `mailto:${EMAIL_TO}?subject=${encodeURIComponent("My Charleston top 5")}&body=${encodeURIComponent(payload.summary)}`;
+  $("#smsLink").href = sms; $("#mailLink").href = mail;
+  if(!SUBMIT_URL){
+    showThanks(false);
+    btn.disabled=false; btn.textContent="Send my picks \u2764\uFE0F";
+    setTimeout(()=>{ window.location.href = sms; }, 350);
+    return;
+  }
+  let ok=false;
+  if(SUBMIT_URL){
+    try{
+      const r = await fetch(SUBMIT_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
+      ok = r.ok;
+    }catch(e){
+      try{ await fetch(SUBMIT_URL,{method:"POST",mode:"no-cors",body:JSON.stringify(payload)}); ok=true; }catch(e2){ ok=false; }
+    }
+  }
+  if(!ok){
+    btn.disabled=false; btn.textContent="Try again";
+    $("#err").innerHTML = `Hmm, that didn't go through. You can <a href="${sms}">text me your picks</a> or <a href="${mail}">email them</a> instead, it's all filled in.`;
+    $("#err").style.display="block";
+    return;
+  }
+  showThanks(true);
+}
+function showThanks(sent){
+  $("#finalList").innerHTML = picks.map(i=>`<li>${esc(L[i].title)}</li>`).join("");
+  if(!sent){
+    $("#thanksMsg").textContent = "Your messages app should pop open with your picks all filled in. Just hit send and they'll come straight to me. Charleston is going to be so good.";
+    $("#backupLead").textContent = "Didn't open?";
+  }
+  $("#main").style.display="none"; $("#bar").style.display="none"; $("#thanks").style.display="block";
+  window.scrollTo(0,0); confetti();
+  try{ localStorage.setItem("chs_sent","1"); }catch(e){}
+}
+function confetti(){
+  const cols=["#e9765b","#f4a988","#3e8e8a","#e8b04b","#8e79bd","#7fb8b4"];
+  for(let i=0;i<90;i++){
+    const d=document.createElement("div"); d.className="confetti";
+    d.style.left=Math.random()*100+"vw"; d.style.background=cols[i%cols.length];
+    d.style.animationDuration=(2.2+Math.random()*2.2)+"s"; d.style.animationDelay=(Math.random()*.6)+"s";
+    document.body.appendChild(d); setTimeout(()=>d.remove(),5200);
+  }
+}
+
+render();
+try{ const s=JSON.parse(localStorage.getItem("chs_picks")||"null"); if(s){ (s.picks||[]).forEach(i=>{ if(L[i]&&picks.length<5&&!picks.includes(i)) picks.push(i); }); $("#name").value=s.name||""; $("#note").value=s.note||""; } }catch(e){}
+update();
+$("#submit").addEventListener("click",submit);
+$("#barBtn").addEventListener("click",()=>$("#picks").scrollIntoView({behavior:"smooth"}));
+["#name","#note"].forEach(s=>$(s).addEventListener("input",update));
+</script>
+</body>
+</html>
